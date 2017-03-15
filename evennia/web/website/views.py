@@ -94,7 +94,7 @@ def _gamedata():
     typeclasses = [newclass.__name__ for newclass in all_subclasses(vars()['DefaultObject'])]
 
     pagevars = {
-        "objs": ObjectDB.objects.filter(db_location__isnull=True, db_destination__isnull=True),
+        "objs": ObjectDB.objects.all(),
         "typeclasses": typeclasses
     }
 
