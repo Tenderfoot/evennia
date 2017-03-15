@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Editor</h1>
+    <p>Welcome to the Evennia editor, where you can create and modify Evennia objects</p>
+    <br/>
+
+    <div id="object_types">
+        <span class="object_box">
+            <div> Object Selector </div>
+            <select name="filter">
+                <option value="all">Show All</option>
+            {% for type in typeclasses %}
+                    <option value="{{ type }}">{{ type }}</option>
+                {% endfor %}
+            </select>
+            <br/>
+            <select name="objects" multiple>
+                {% for object in objs %}
+                    <option value="{{ object }}" typeclass="{{ object.typeclass_path }}">{{ object }}</option>
+                {% endfor %}
+            </select>
+        </span>
+        <span class="object_box object_detail">
+            {% for object in objs %}
+            <div name="{{object}}" style="display:none;" class="object_parent_div normal_whitespace">
+                <h1> {{ object }} </h1>
+                <h3> {{ object.typeclass_path }} </h3>
+                <div id="{{object}}_attributes" class=object_box>
+                    <span>
+                        <h1>Attributes</h1>
+                        <br/>
+                        <select name="attributes" class="attr_chooser" multiple>
+                            {% for attribute in object.attributes.all %}
+                                <option value="{{ attribute.key }}">{{ attribute.key }}</option>
+                            {% endfor %}
+                        </select>
+                    </span>
+                    <span class="attr_val default_textbox" style="display:none;">
+                        <textarea class="attribute_value">{{ attribute.value }}</textarea>
+                    </span>
+                    {% for attribute in object.attributes.all %}
+                    <span key="{{ attribute.key }}" class="attr_val" style="display:none;">
+                        <textarea class="attribute_value">{{ attribute.value }}</textarea>
+                    </span>
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% endfor %}
+        </span>
+    </div>
+{% endblock content %}
