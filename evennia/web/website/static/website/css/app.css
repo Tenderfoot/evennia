@@ -21,3 +21,47 @@
         position: static;
     }
 }
+
+.object_box {
+    display:inline-block;
+    border:2px solid grey;
+    border-radius:5px;
+    padding:5px;
+    vertical-align:top;
+    text-align:center;
+}
+
+#object_types {
+    white-space:nowrap;
+}
+
+.object_detail {
+    width:75%;
+    height:500px;
+}
+
+#object_selector {
+    height:100%;
+}
+
+.normal_whitespace {
+    white-space:normal;
+}
+
+select[name=objects] {
+    height:500px;
+    width:100%;
+}
+
+.attribute_value {
+    width:500px;
+    height:250px;
+}
+
+select[name=attributes] {
+    vertical-align: top;
+}
+
+.attr_chooser {
+    height:250px;
+}

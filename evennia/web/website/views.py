@@ -81,6 +81,25 @@ def _gamestats():
     }
     return pagevars
 
+def _gamedata():
+
+    # Grab every object that isn't a path object. 
+    # Path objects will be modifiable on the relevant location edit page.
+    
+    from evennia.objects.objects import DefaultObject
+    def all_subclasses(cls):
+        return cls.__subclasses__() + [g for s in cls.__subclasses__()
+                                       for g in all_subclasses(s)]
+
+    typeclasses = [newclass.__name__ for newclass in all_subclasses(vars()['DefaultObject'])]
+
+    pagevars = {
+        "objs": ObjectDB.objects.filter(db_location__isnull=True, db_destination__isnull=True),
+        "typeclasses": typeclasses
+    }
+
+
+    return pagevars
 
 def page_index(request):
     """
@@ -118,6 +137,15 @@ def evennia_admin(request):
         request, 'evennia_admin.html', {
             'playerdb': PlayerDB})
 
+@staff_member_required
+def editor(request):
+    """
+    Web based game editor.
+    """
+
+    pagevars = _gamedata()
+    return render(
+        request, 'editor.html', pagevars)
 
 def admin_wrapper(request):
     """

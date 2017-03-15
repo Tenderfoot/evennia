@@ -25,7 +25,10 @@ urlpatterns = [
    url(r'django_admin/', website_views.admin_wrapper, name="django_admin"),
 
    # Admin docs
-   url(r'^admin/doc/', include('django.contrib.admindocs.urls'))
+   url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+
+   # Custom map editor
+   url(r'^editor/', website_views.editor, name="editor")
    ]
 
 if settings.EVENNIA_ADMIN:
